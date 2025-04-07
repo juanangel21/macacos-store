@@ -1,5 +1,5 @@
 
-# Guía para Ejecutar el Proyecto Macacos Store
+# Macacos Store
 
 Este proyecto es una tienda en línea desarrollada con **Angular**. A continuación, se detallan los pasos necesarios para ejecutarlo en tu entorno local.
 
