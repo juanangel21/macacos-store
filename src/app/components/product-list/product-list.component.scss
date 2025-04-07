@@ -1,0 +1,54 @@
+.card-img-top {
+    height: 200px;
+    object-fit: contain;
+    padding: 1rem;
+    background: #f9f9f9;
+  }
+  
+  .card {
+    transition: transform 0.2s ease;
+    border-radius: 10px;
+    height: 100%;
+  
+    &:hover {
+      transform: translateY(-5px);
+    }
+  }
+  
+  /* Estilo general del carrusel */
+  .carousel-item {
+    padding: 1rem 0;
+  }
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 5%;
+  }
+  
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    padding: 1.5rem;
+  }
+  
+  /* Opcional: hacer que no colapsen las cards */
+  .row > .col-10,
+  .row > .col-sm-6,
+  .row > .col-md-4 {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .carousel-indicators {
+    position: absolute;
+    bottom: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    width: 100%;
+  
+    button {
+      background-color: #333;
+    }
+  }
