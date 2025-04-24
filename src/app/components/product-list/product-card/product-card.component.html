@@ -1,0 +1,16 @@
+<div class="card product-card text-center h-100 d-flex flex-column justify-content-between">
+  <img [src]="product.image" [alt]="product.name" class="card-img-top" />
+
+  <div class="card-body">
+    <h5 class="card-title">{{ product.name }}</h5>
+    <p class="card-text fw-bold">{{ product.price | currency:'USD' }}</p>
+
+    <div class="quantity-control d-flex justify-content-center align-items-center mb-3">
+      <button class="btn btn-sm btn-outline-secondary me-2" (click)="decreaseQuantity()">−</button>
+      <span class="quantity fw-bold">{{ quantity }}</span>
+      <button class="btn btn-sm btn-outline-secondary ms-2" (click)="increaseQuantity()">+</button>
+    </div>
+
+    <button class="btn btn-primary w-100" (click)="addToCart()">Agregar al carrito</button>
+  </div>
+</div>

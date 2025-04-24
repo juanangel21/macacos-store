@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { ProductCardComponent } from './product-card/product-card.component';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports:[CommonModule],
+  imports:[CommonModule, ProductCardComponent],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss'
 })
@@ -51,9 +53,14 @@ export class ProductListComponent {
   chunkedDesktop: any[][] = [];
   chunkedMobile: any[][] = [];
 
-  constructor() {
+  constructor(private router: Router) {
     this.chunkedDesktop = this.chunkProducts(this.products, 3);
     this.chunkedMobile = this.chunkProducts(this.products, 1);
+  }
+
+  // ✅ Nueva propiedad para saber si está en modo cuadrícula
+  get isGridMode(): boolean {
+    return this.router.url.includes('/productos');
   }
 
   chunkProducts(arr: any[], size: number): any[][] {
