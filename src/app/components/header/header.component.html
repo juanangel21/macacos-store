@@ -36,20 +36,18 @@
 
     <!-- Menú navegación -->
     <ul class="navbar-nav text-end">
-      <li class="nav-item" *ngFor="let link of navLinks; let i = index">
-        <a class="nav-link nav-link-animate" href="#">{{ link }}</a>
+      <li class="nav-item" *ngFor="let link of navLinks">
+        <a class="nav-link nav-link-animate" [routerLink]="link.path">{{ link.name }}</a>
       </li>
     </ul>
 
     <!-- Controles: sesión y carrito -->
-    <div class="d-flex flex-column flex-lg-row align-items-center justify-content-lg-end gap-2 w-100 mt-3 mt-lg-0">
-      <!--<button class="btn btn-outline-primary px-4">Iniciar sesión</button>
-      <button class="btn btn-outline-secondary px-4">Registrarse</button>-->
-      <button class="btn btn-dark btn-cart px-4" [ngClass]="{ 'animate': showCartAnimation }">
-        <i class="bi bi-cart-fill me-2"></i>
-        <span class="d-none d-lg-inline">Carrito</span>
-      </button>
-    </div>
-
+    <a class="btn btn-dark btn-cart position-relative px-4" [routerLink]="['/carrito']" [ngClass]="{ 'animate': showCartAnimation }">
+      <i class="bi bi-cart-fill me-2"></i>
+      <span *ngIf="totalItems > 0" class="badge bg-danger rounded-pill">
+        {{ totalItems }}
+      </span>
+      <span class="d-none d-lg-inline">Carrito</span>
+    </a>
   </div>
 </nav>
