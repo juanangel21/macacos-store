@@ -1,0 +1,9 @@
+table {
+  th, td {
+    vertical-align: middle;
+  }
+
+  td:last-child {
+    text-align: right;
+  }
+}
