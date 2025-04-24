@@ -1,0 +1,66 @@
+<div class="container my-4">
+  <h2 class="text-center mb-4">🛒 Carrito de Compras</h2>
+
+  <div *ngIf="cartItems.length > 0; else emptyCart">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Producto</th>
+        <th>Cantidad</th>
+        <th>Precio</th>
+        <th>Total</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of cartItems">
+        <td class="d-flex align-items-center gap-2">
+          <img [src]="item.product.image" alt="{{ item.product.name }}" width="50" height="50" class="rounded border" />
+          <span>{{ item.product.name }}</span>
+        </td>
+        <td>
+          <div class="input-group input-group-sm mx-auto" style="max-width: 120px;">
+            <button class="btn btn-outline-secondary" (click)="decreaseItem(item.product.id)">−</button>
+            <input type="text" class="form-control text-center" [value]="item.quantity" readonly />
+            <button class="btn btn-outline-secondary" (click)="cartService.addToCart(item.product)">+</button>
+          </div>
+        </td>
+        <td>{{ item.product.price | currency:'USD' }}</td>
+        <td>{{ item.product.price * item.quantity | currency:'USD' }}</td>
+        <td>
+          <button class="btn btn-sm btn-danger" (click)="removeItem(item.product.id)">Eliminar</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <!-- 🧾 Simulador de Cupones -->
+    <div class="mt-4">
+      <label class="form-label">🎟 Ingresar código de cupón:</label>
+      <div class="input-group">
+        <input type="text" class="form-control" [(ngModel)]="couponCode" placeholder="Ej: DESCUENTO15" />
+        <button class="btn btn-success" (click)="applyCoupon()">Aplicar</button>
+      </div>
+      <div class="mt-2" [ngClass]="{'text-success': couponValid, 'text-danger': !couponValid}">
+        {{ couponMessage }}
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- 💲 Totales -->
+    <div class="text-end fw-bold fs-5">
+      Subtotal: {{ getSubtotal() | currency:'USD' }} <br>
+      <span *ngIf="couponValid">Descuento: {{ discount }}%</span><br>
+      <span *ngIf="couponValid">Total con Descuento: {{ finalTotal | currency:'USD' }}</span>
+    </div>
+
+    <div class="text-end mt-3">
+      <button class="btn btn-outline-danger" (click)="clearCart()">Vaciar Carrito</button>
+    </div>
+  </div>
+
+  <ng-template #emptyCart>
+    <p class="text-center">Tu carrito está vacío 🛍️</p>
+  </ng-template>
+</div>

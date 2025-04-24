@@ -1,7 +1,18 @@
 <div class="container my-5">
-    <h2 class="text-center mb-4">Productos Destacados</h2>
-  
-    <!-- 🖥️ Desktop Carousel (≥ lg) -->
+  <h2 class="text-center mb-4">{{ isGridMode ? 'Todos los Productos' : 'Productos Destacados' }}</h2>
+
+  <!-- ✅ Modo cuadrícula para /productos -->
+  <div *ngIf="isGridMode; else carouselView">
+    <div class="row g-4">
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let product of products">
+        <app-product-card [product]="product"></app-product-card>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🖥️ Carrusel para home -->
+  <ng-template #carouselView>
+    <!-- 💻 Desktop Carousel (≥ lg) -->
     <div id="desktopCarousel" class="carousel slide d-none d-lg-block" data-bs-ride="carousel">
       <div class="carousel-indicators">
         <button *ngFor="let group of chunkedDesktop; let i = index"
@@ -13,23 +24,17 @@
                 [attr.aria-label]="'Slide ' + (i + 1)">
         </button>
       </div>
-  
+
       <div class="carousel-inner">
         <div class="carousel-item" *ngFor="let group of chunkedDesktop; let i = index" [ngClass]="{ active: i === 0 }">
           <div class="row justify-content-center">
             <div class="col-md-4" *ngFor="let product of group">
-              <div class="card product-card mb-3">
-                <img [src]="product.image" class="card-img-top" alt="{{ product.name }}" />
-                <div class="card-body">
-                  <h5 class="card-title">{{ product.name }}</h5>
-                  <p class="card-text">${{ product.price }}</p>
-                </div>
-              </div>
+              <app-product-card [product]="product"></app-product-card>
             </div>
           </div>
         </div>
       </div>
-  
+
       <button class="carousel-control-prev" type="button" data-bs-target="#desktopCarousel" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       </button>
@@ -37,7 +42,7 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
       </button>
     </div>
-  
+
     <!-- 📱 Mobile Carousel (< lg) -->
     <div id="mobileCarousel" class="carousel slide d-lg-none" data-bs-ride="carousel">
       <div class="carousel-indicators">
@@ -50,21 +55,15 @@
                 [attr.aria-label]="'Slide ' + (i + 1)">
         </button>
       </div>
-  
+
       <div class="carousel-inner">
         <div class="carousel-item" *ngFor="let group of chunkedMobile; let i = index" [ngClass]="{ active: i === 0 }">
           <div class="d-flex justify-content-center">
-            <div class="card product-card mb-3" style="width: 90%;">
-              <img [src]="group[0].image" class="card-img-top" alt="{{ group[0].name }}" />
-              <div class="card-body">
-                <h5 class="card-title">{{ group[0].name }}</h5>
-                <p class="card-text">${{ group[0].price }}</p>
-              </div>
-            </div>
+            <app-product-card [product]="group[0]"></app-product-card>
           </div>
         </div>
       </div>
-  
+
       <button class="carousel-control-prev" type="button" data-bs-target="#mobileCarousel" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       </button>
@@ -72,4 +71,5 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
       </button>
     </div>
-  </div>
+  </ng-template>
+</div>
